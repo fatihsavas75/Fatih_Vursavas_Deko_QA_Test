@@ -12,8 +12,7 @@ object of the robot was created in the same method to be able to use
 6- WebElementContains method in BaseRobot was called in verifySuccessfulLogin method in 
 the BackofficeRobot class and then login was verified with username.
 7. Git was added, committed and pushed to the personal repository. 
-
-
+8. In order to log out, I added two new webelements and 1 method in BackofficeRobot class. 
   
 
 

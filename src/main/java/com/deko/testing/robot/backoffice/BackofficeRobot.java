@@ -28,20 +28,28 @@ public class BackofficeRobot extends BaseRobot {
     @FindBy(xpath = "/html/body/div[1]/div/div/div/div/form/div[1]/div/div/p")
     private WebElement signInError;
 
+    // I added this two webelement to sign out
+
+    @FindBy(xpath = "(//a[@class='dropdown-toggle btn btn-default'])[1]")
+    private WebElement userIconButton;
+
+    @FindBy(xpath = "//a[@data-ng-click='logout()']")
+    private WebElement logOutButton;
+
     //todo: locate this webelement which will need to be used in later methods and tests.
-    @FindBy()
+    @FindBy(xpath = "//input[@type=\"text\"]")
     private WebElement resetPasswordField;
 
     //todo: locate this webelement which will need to be used in later methods and tests.
-    @FindBy()
+    @FindBy(xpath = "//button[@class=\"btn btn-sm btn-primary\"]")
     private WebElement resetButton;
 
     //todo: locate this webelement which will need to be used in later methods and tests.
-    @FindBy()
+    @FindBy(xpath = "//span[@data-ng-transclude]")
     private WebElement resetSignInButton;
 
     //todo: locate this webelement which will need to be used in later methods and tests.
-    @FindBy()
+    @FindBy(xpath = "//p[@data-ng-if=\"Response.Message\"]")
     private WebElement resetSuccessText;
 
     @FindBy(id = "top-bar")
@@ -80,14 +88,23 @@ public class BackofficeRobot extends BaseRobot {
         return this;
     }
 
+
+    public BackofficeRobot fillResetPasswordUserName(String username){
+        type(resetPasswordField, username);
+        return this;
+    }
+
+
     public BackofficeRobot resetPassword(){
         //todo: Complete this method
+        click(resetSignInButton);
         return this;
     }
 
     public boolean verifySignInError(String text){
         //todo: Complete this method, so that tests can pass in expected error text
-        return false;
+
+        return WebElementContains(signInError,text);
     }
 
     public boolean verifyBackofficeUrl(){
@@ -104,6 +121,16 @@ public class BackofficeRobot extends BaseRobot {
 
     public boolean verifyResetPasswordSuccess(){
         //todo: Complete this verify method, to be used by test class
-        return false;
+        return WebElementContains(resetSuccessText, "If the username exists, a password reset email has been sent to the connected email address. Please contact your account manager if you need further assistance.");
+
+    }
+    // I added this log out method
+    public BackofficeRobot logOut() throws InterruptedException {
+        //todo: Complete this method
+        Thread.sleep(500);
+        click(userIconButton);
+        Thread.sleep(500);
+        click(logOutButton);
+        return this;
     }
 }
